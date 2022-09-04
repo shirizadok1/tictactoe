@@ -61,7 +61,7 @@ const ResetGame = () => {
     <div class="flex flex-col items-center mb-8">
       <div v-for="(row, x) in board" :key="x" class="flex">
 
-        <div v-for="(cell, y) in row" :key="y" @click="MakeMove(x,y)" :class="`border border-black w-20 h-20 hover:bg-gray-700 flex items-center
+        <div v-for="(cell, y) in row" :key="y" @click="MakeMove(x,y)" :class="`border border-black w-20 h-20 hover:bg-teal-700 flex items-center
         justify-center material-icons-outlined text-4xl cursor-pointer`">
           {{ cell === 'X' ? 'close' : cell === 'O' ? 'circle' : ''}}
 
@@ -70,7 +70,7 @@ const ResetGame = () => {
 
       </div>
     </div>
-    <h2 v-if="winner" class="text-6xl font-bold mb-8">Player '{{ winner }}' wins!</h2>
+    <h2 v-if="winner" class="text-6xl font-bold mb-8">Player '{{winner}}' wins!</h2>
      <!-- v-if means if we have a winner only then we will declare him -->
     <button @click="ResetGame" class="px-4 py-2 bg-blue-500 rounded uppercase font-bold hover:bg-blue-600 duration-300">Reset Game</button>
   </main>
