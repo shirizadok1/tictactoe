@@ -9,7 +9,7 @@ const board = ref([
 
 ])
 
-const calculateWinner = (squares) => {
+const calculateWinner = (board) => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -22,16 +22,16 @@ const calculateWinner = (squares) => {
   ];
 
   for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i]; //a,b,c will be the indexs of the matrix to check winners, it can be 0,1,2 or 3,4,5 and so on(pulling the numbers and we put them as a,b,c)
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a]; //if they win we return whoever is in that cell because thats the winner
+    const [a, b, c] = lines[i]; //a,b,c will be the indexs of the matrix to check winners, it can be 0,1,2 or 3,4,5 and so on(pull the numbers and we put them as a,b,c)
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a]; //if they win we return whoever is in that cell(x or o) because thats the winner
     }
   }
   return null;
 }
 
 
-const winner = computed(() => calculateWinner(board.value.flat)) //because we are using compted we need to declate board.value and not just board and.flat because we want to flat it to an array
+const winner = computed(() => calculateWinner(board.value.flat())) //because we are using compted we need to declate board.value and not just board and.flat because we want to flat it to an array
 
 const MakeMove = (x,y) => {
   if(winner.value) return   // if we have a winner then the game is over
@@ -40,7 +40,7 @@ const MakeMove = (x,y) => {
 
   board.value[x][y] = player.value  //our board in those cells is equal to whoever made that move
   
-  player.value = player.value === 'X' ? 'O' : 'X'
+  player.value = player.value === 'X' ? 'O' : 'X' //if x made a move now it's o's turn and the opposite
 }
 
 const ResetGame = () => {
@@ -70,7 +70,7 @@ const ResetGame = () => {
 
       </div>
     </div>
-    <h2 v-if="winner" class="text-6xl font-bold mb-8">Player '{{winner}}' wins!</h2>
+    <h2 v-if="winner" class="text-6xl font-bold mb-8">Player {{ winner }} wins!</h2>
      <!-- v-if means if we have a winner only then we will declare him -->
     <button @click="ResetGame" class="px-4 py-2 bg-blue-500 rounded uppercase font-bold hover:bg-blue-600 duration-300">Reset Game</button>
   </main>
